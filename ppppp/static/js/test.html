@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login/Signup Page</title>
+  <style>
+    .error {
+      color: red;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    // User database
+    let users = [];
+
+    // Function to create a new user
+    function createUser(username, password) {
+      const user = {
+        username,
+        password
+      };
+
+      users.push(user);
+    }
+
+    // Function to validate user input
+    function validateUser(username, password) {
+      // Check if the username and password meet the required criteria
+      if (username.length < 5 || password.length < 8) {
+        return false;
+      }
+
+      // Check if the username already exists in the user database
+      const existingUser = users.find(user => user.username === username);
+      if (existingUser) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function submitForm() {
+      // Get the form values
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Validate user input
+      const isValid = validateUser(username, password);
+
+      // Display error message if user is not validated
+      const errorElement = document.getElementById('error-message');
+      if (!isValid) {
+        errorElement.innerText = 'Invalid user';
+      } else {
+        errorElement.innerText = '';
+
+        // Read existing users from the JSON file
+        let existingUsers = [];
+        try {
+          existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+        } catch (error) {
+          existingUsers = [];
+        }
+
+        // Check if the username already exists in the user database
+        const existingUser = existingUsers.find(user => user.username === username);
+        if (existingUser) {
+          errorElement.innerText = 'Username already exists';
+          return;
+        }
+
+        // Create the new user
+        const newUser = {
+          username,
+          password
+        };
+
+        // Add the new user to the existing users
+        existingUsers.push(newUser);
+
+        // Save the updated user data to the JSON file
+        localStorage.setItem('users', JSON.stringify(existingUsers));
+
+        // Clear the form inputs
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+
+        // Show success message or perform further actions
+        alert('User created successfully!');
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Login/Signup Page</h1>
+  <div>
+    <button id="sign-up">Sign Up</button>
+    <button id="sign-in">Sign In</button>
+  </div>
+  <div id="login-up">
+    <h2>Create Account</h2>
+    <form>
+      <input type="text" id="username" placeholder="Username"><br>
+      <input type="password" id="password" placeholder="Password"><br>
+      <input type="button" value="Submit" onclick="submitForm()">
+    </form>
+    <p id="error-message" class="error"></p>
+  </div>
+  <div id="login-in" class="hidden">
+    <h2>Login</h2>
+    <!-- Login form goes here -->
+  </div>
+  <script>
+    /*===== LOGIN SHOW and HIDDEN =====*/
+    const signUp = document.getElementById('sign-up');
+    const signIn = document.getElementById('sign-in');
+    const loginIn = document.getElementById('login-in');
+    const loginUp = document.getElementById('login-up');
+
+    signUp.addEventListener('click', () => {
+      // Remove classes first if they exist
+      loginIn.classList.remove('block');
+      loginUp.classList.remove('hidden');
+
+      // Add classes
+      loginIn.classList.add('hidden');
+      loginUp.classList.add('block');
+    });
+
+    signIn.addEventListener('click', () => {
+      // Remove classes first if they exist
+      loginIn.classList.remove('hidden');
+      loginUp.classList.remove('block');
+
+      // Add classes
+      loginIn.classList.add('block');
+      loginUp.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

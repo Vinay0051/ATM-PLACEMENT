@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MoneyMatic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    
+    #content {
+      width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    
+    .image-container {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      display: inline-block;
+      margin: 0 auto;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    #text-container {
+      padding: 20px;
+    }
+    
+    p {
+      color: #333;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <h1>MoneyMatic</h1>
+  </div>
+  
+  <div id="content">
+    <div class="image-container">
+      <img src="{{ url_for('static', filename='public/graph.png') }}" alt="Image">
+<!--      <img src="E:\B.Tech sem 4\project\IV SEM PROJ\ppppp\graph.png" alt="Graph Image">-->
+    </div>
+    
+<!--    <div class="image-container">-->
+<!--      <img src="photo.png" alt="Location Photo">-->
+<!--    </div>-->
+    
+    <div id="text-container">
+      <p>Using Dijkstra's algorithm and the K-means Clustering method, the centroid in the image above depicts the ideal position for installing a new ATM in the specified area
+        by taking into account all the ATMs present within a 1 km radius.</p>
+    </div>
+  </div>
+</body>
+</html>
